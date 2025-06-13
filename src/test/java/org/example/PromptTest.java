@@ -7,7 +7,7 @@ public class PromptTest {
         String template = "把以下文本内容翻译成{style}的风格。\n" +
                 "文本：{text}";
         Prompt prompt = new Prompt(template);
-        String chat_text = prompt.Format("style", "666", "text");
+        String chat_text = prompt.Format("style", "666", "text", "武帝");
         System.out.println(llm.llm.chat(chat_text));
     }
 
