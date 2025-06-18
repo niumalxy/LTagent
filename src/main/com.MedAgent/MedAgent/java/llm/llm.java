@@ -10,6 +10,7 @@ public class llm {
             .baseUrl(LLMConfig.base_url)
             .apiKey(LLMConfig.api_key)
             .modelName(LLMConfig.model_name)
+            .temperature(0.7)
             .build();
 
     public static String chat(String text) {
