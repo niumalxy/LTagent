@@ -1,6 +1,7 @@
-package org.example;
+package Test.org.agent.MedAgent;
 
-import llm.Prompt;
+import org.agent.MedAgent.llm.Prompt;
+import org.agent.MedAgent.llm.llm;
 
 public class PromptTest {
     public static void main(String[] args) {
@@ -8,7 +9,7 @@ public class PromptTest {
                 "文本：{text}";
         Prompt prompt = new Prompt(template);
         String chat_text = prompt.Format("style", "666", "text", "武帝");
-        System.out.println(llm.llm.chat(chat_text));
+        System.out.println(llm.chat(chat_text));
     }
 
 }

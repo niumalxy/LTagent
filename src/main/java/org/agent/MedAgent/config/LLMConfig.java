@@ -1,4 +1,4 @@
-package config;
+package org.agent.MedAgent.config;
 
 public class LLMConfig {
     public static final String model_name = "Lite";

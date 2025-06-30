@@ -1,9 +1,8 @@
-package llm;
-
+package org.agent.MedAgent.llm;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-import config.LLMConfig;
+import org.agent.MedAgent.config.LLMConfig;
 
 public class llm {
     public static ChatLanguageModel model = OpenAiChatModel.builder()
