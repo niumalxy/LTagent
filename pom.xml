@@ -26,10 +26,34 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <!-- web应用程序核心依赖 -->
+    <dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-core</artifactId>
+    </dependency>
     <dependency>
       <groupId>dev.langchain4j</groupId>
       <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
+    </dependency>
+<!--    &lt;!&ndash; 接入ollama &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>dev.langchain4j</groupId>-->
+<!--      <artifactId>langchain4j-ollama-spring-boot-starter</artifactId>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; 接入阿里云百炼平台 &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>dev.langchain4j</groupId>-->
+<!--      <artifactId>langchain4j-community-dashscope-spring-boot-starter</artifactId>-->
+<!--    </dependency>-->
+    <!--langchain4j高级功能-->
+    <dependency>
+      <groupId>dev.langchain4j</groupId>
+      <artifactId>langchain4j-spring-boot-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -45,7 +69,12 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
     </dependency>
-    <!-- 前后端分离中的后端接口测试工具 -->
+      <dependency>
+          <groupId>org.agent</groupId>
+          <artifactId>LangchainDemo</artifactId>
+          <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <!-- 前后端分离中的后端接口测试工具 -->
 <!--    <dependency>-->
 <!--      <groupId>com.github.xiaoymin</groupId>-->
 <!--      <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>-->

@@ -3,7 +3,7 @@ package org.agent.MedAgent.Object;
 import org.agent.MedAgent.Object.Result;
 
 public class Response {
-    public static Result success(){
+    public static Result<Void> success(){
         Result<Void> result = new Result<>();
         result.setCode(200);
         result.setMessage("成功");
