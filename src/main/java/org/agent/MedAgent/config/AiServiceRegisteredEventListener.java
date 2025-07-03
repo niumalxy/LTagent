@@ -8,11 +8,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-class AiServiceRegisteredEventListener implements ApplicationListener<AiServiceRegisteredEvent> {
+public class AiServiceRegisteredEventListener implements ApplicationListener<AiServiceRegisteredEvent> {
 
 
     @Override
     public void onApplicationEvent(AiServiceRegisteredEvent event) {
+        System.out.println("hello!");
         Class<?> aiServiceClass = event.aiServiceClass();
         List<ToolSpecification> toolSpecifications = event.toolSpecifications();
         for (int i = 0; i < toolSpecifications.size(); i++) {

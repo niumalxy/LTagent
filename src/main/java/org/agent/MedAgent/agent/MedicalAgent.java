@@ -11,12 +11,14 @@ import reactor.core.publisher.Flux;
 import dev.langchain4j.service.spring.AiService;
 import org.agent.MedAgent.Prompt.MedicalPrompt;
 
-//@AiService(wiringMode = AiServiceWiringMode.EXPLICIT,
-//        chatModel = "ollamaChatModel"
-//)
-@AiService
+@AiService(wiringMode = AiServiceWiringMode.EXPLICIT,
+        //streamingChatModel = "openAiChatModel",
+        chatModel = "openAiChatModel",
+        chatMemoryProvider = "chatManager"
+)
 public interface MedicalAgent {
     @SystemMessage(MedicalPrompt.start)
-    //Flux<String> chat(@MemoryId Long memoryId, @UserMessage String userMessage, @V("current_date") String current_date);
     String chat(@MemoryId Long memoryId, @UserMessage String userMessage, @V("current_date") String current_date);
+//    @SystemMessage(MedicalPrompt.start)
+//    Flux<String> stream_chat(@UserMessage String userMessage, @V("current_date") String current_date);
 }
