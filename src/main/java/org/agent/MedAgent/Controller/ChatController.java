@@ -13,9 +13,11 @@ import org.agent.MedAgent.Object.Response;
 import org.agent.MedAgent.Object.Result;
 import org.agent.MedAgent.Service.ChatSessionService;
 import org.agent.MedAgent.agent.ChatMemorys;
+import org.agent.MedAgent.agent.LocalChatHistory;
 import org.agent.MedAgent.agent.MedicalAgent;
 import org.agent.MedAgent.config.AiServiceRegisteredEventListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -30,7 +32,7 @@ public class ChatController {
     @Autowired
     private MedicalAgent medicalAgent;
     @Autowired
-    private AiServiceRegisteredEventListener aiServiceRegisteredEventListener;
+    private ChatMemoryProvider chatMemoryProvider;
 
     @GetMapping("/check")
     public Result<Void> check(){
@@ -47,7 +49,6 @@ public class ChatController {
 
     @GetMapping("/chat_history/{memoryId}")
     public void chat_init(@PathVariable Long memoryId) {
-        //aiServiceRegisteredEventListener.onApplicationEvent();
-        medicalAgent.
+        System.out.println(LocalChatHistory.getMessage(memoryId));
     }
 }
