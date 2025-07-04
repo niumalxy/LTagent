@@ -5,6 +5,7 @@ import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.internal.chat.Message;
+import org.agent.MedAgent.store.RedisChatMemoryStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,12 +19,12 @@ import java.util.Map;
 @Configuration
 public class ChatMemorys {
     @Autowired
-    private LocalChatHistory localChatHistory;
+    private RedisChatMemoryStore redisChatMemoryStore;
     //为不同用户设置不同的chatMemory
     @Bean
     public ChatMemoryProvider ChatManager(){
         return memoryId -> {
-            ChatMemory manager = MessageWindowChatMemory.builder().id(memoryId).maxMessages(10).build();
+            ChatMemory manager = MessageWindowChatMemory.builder().id(memoryId).maxMessages(10).chatMemoryStore(redisChatMemoryStore).build();
             LocalChatHistory.chat_history.put(memoryId, manager);
             return manager;
         };

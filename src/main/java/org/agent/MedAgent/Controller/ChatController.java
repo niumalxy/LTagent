@@ -6,6 +6,7 @@ import org.agent.MedAgent.Object.Response;
 import org.agent.MedAgent.Object.Result;
 import org.agent.MedAgent.agent.LocalChatHistory;
 import org.agent.MedAgent.agent.MedicalAgent;
+import org.agent.MedAgent.utils.GlobalTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -30,7 +31,7 @@ public class ChatController {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String currentDate = now.format(formatter);
-        return medicalAgent.chat(chatItem.getMemoryId(), chatItem.getMessage(), currentDate);
+        return medicalAgent.chat(GlobalTool.MemoryIdGenerater(chatItem.getMemoryId()), chatItem.getMessage(), currentDate);
     }
 
     //测试本地变量存储的对话接口

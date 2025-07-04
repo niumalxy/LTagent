@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ThreadPoolConfig {
     @Bean
-    public Executor executor(){
+    public ThreadPoolTaskExecutor executor(){
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         //设置线程池参数信息
         taskExecutor.setCorePoolSize(10);
