@@ -5,8 +5,6 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import dev.langchain4j.service.spring.AiServiceWiringMode;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import dev.langchain4j.service.spring.AiService;
 import org.agent.MedAgent.Prompt.MedicalPrompt;

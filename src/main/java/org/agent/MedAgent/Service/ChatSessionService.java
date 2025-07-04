@@ -1,14 +1,11 @@
 package org.agent.MedAgent.Service;
 
-import org.springframework.stereotype.Service;
 
 /**
  * @description:
  * 每个Session Chat的相关服务
  */
-@Service
-public class ChatSessionService {
-    public String chat_init(String text) {
-        return "hello world";
-    }
+public interface ChatSessionService {
+    //将对话存入MongoDB
+    void Dump2Mongo(Long memoryId);
 }

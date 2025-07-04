@@ -25,6 +25,8 @@
     <mybatis-plus.version>3.5.11</mybatis-plus.version>
   </properties>
 
+
+
   <dependencies>
 <!--    <dependency>-->
 <!--      <groupId>org.mybatis.spring.boot</groupId>-->
@@ -73,6 +75,15 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>3.7.0</version>
     </dependency>
 <!--    <dependency>-->
 <!--        <groupId>org.agent.MedAgent</groupId>-->
