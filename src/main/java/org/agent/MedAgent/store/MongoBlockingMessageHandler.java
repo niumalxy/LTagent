@@ -26,8 +26,8 @@ public class MongoBlockingMessageHandler {
                     chatSessionService.Dump2Mongo(Long.parseLong(memoryId));
                 }
                 catch (Exception e){
-                    System.out.println("Blocking queue error happened");
-                    break;
+                    System.out.println(e);
+                    throw e;
                 }
             }
         });
