@@ -1,16 +1,21 @@
 package org.agent.MedAgent;
 
+import org.agent.MedAgent.store.MongoBlockingMessageHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan("org.agent.MedAgent")
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class StartSpringBoot {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(StartSpringBoot.class, args);
-        System.out.println("启动成功!!!");
+        System.out.println("Springboot启动成功!!!");
+        MongoBlockingMessageHandler handler = run.getBean(MongoBlockingMessageHandler.class);
+        handler.StartHandlingMongoBlockingQueue();
+        System.out.println("Redis消息队列消费者线程启动成功！");
     }
 
 }

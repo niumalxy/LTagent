@@ -3,9 +3,9 @@ import dev.langchain4j.model.openai.OpenAiChatModel;
 import org.agent.MedAgent.StartSpringBoot;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(classes = StartSpringBoot.class)
+//@SpringBootTest(classes = StartSpringBoot.class)
 class TestChat {
     @Autowired
     private OpenAiChatModel openAiChatModel;

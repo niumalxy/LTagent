@@ -6,4 +6,7 @@ public class RedisKey {
     public static String formatChatHistoryKey(Long memoryId){
         return ChatHistoryKey+memoryId.toString();
     }
+
+    //消息队列key
+    public static final String QUEUE_KEY = "MongoQueue";
 }

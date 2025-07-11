@@ -7,7 +7,9 @@ import dev.langchain4j.data.message.ChatMessageDeserializer;
 import dev.langchain4j.data.message.ChatMessageSerializer;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import org.agent.MedAgent.Object.RedisChatHistory;
+import org.agent.MedAgent.constant.RedisKey;
 import org.agent.MedAgent.utils.GlobalTool;
+import org.agent.MedAgent.utils.RedisBlockingMessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -21,6 +23,8 @@ import java.util.List;
 public class RedisChatMemoryStore implements ChatMemoryStore {
     @Autowired
     private StringRedisTemplate redisTemplate;
+    @Autowired
+    private RedisBlockingMessageUtil redisBlockingMessageUtil;
 
     @Override
     public List<ChatMessage> getMessages(Object memoryId){
@@ -53,9 +57,11 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
             valueOps.set(redis_key, json);
             //重置过期时间为3天
             redisTemplate.expire(redis_key, Duration.ofDays(60*60*72));
+            redisBlockingMessageUtil.sendMessage(RedisKey.QUEUE_KEY, memoryId.toString());
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
 
     }
 
