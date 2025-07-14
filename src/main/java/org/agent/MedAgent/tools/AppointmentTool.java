@@ -17,7 +17,7 @@ public class AppointmentTool {
     @Autowired
     private AppointmentMapper appointmentMapper;
 
-    @Tool(name="预约挂号", value = "根据参数，先执行工具方法queryDepartment查询是否可预约，并直接给用户回答是否可预约，并让用户确认所有预约信息，用户确认后再进行预约。" +
+    @Tool(name="预约挂号", value = "在用户预约时调用。当用户提供完整信息后，根据用户所提供的信息，直接给用户回答是否可预约，并让用户确认所有预约信息，用户确认后再进行预约。" +
                                 "如果用户没有提供具体的医生姓名，请从向量存储中找到一位医生。")
     public String bookAppointment(Appointment appointment){
         //查找数据库中是否包含对应的预约记录
@@ -31,6 +31,7 @@ public class AppointmentTool {
             }
         }
         appointmentMapper.save(appointment);
+        System.out.println("预约成功！信息："+appointment.toString());
         return  "预约成功，并返回预约详情";
     }
 
