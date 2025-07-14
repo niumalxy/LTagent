@@ -23,7 +23,7 @@ public class RedisBlockingMessageUtil {
         while(true){
             BoundListOperations<String, String> boundListOperations = stringRedisTemplate.boundListOps(QUEUE_KEY);
             String message = boundListOperations.rightPop(10, TimeUnit.SECONDS);
-            if(message!=null){
+            if(!(message==null || message.equals("EMPTY"))){
                 return message;
             }
         }

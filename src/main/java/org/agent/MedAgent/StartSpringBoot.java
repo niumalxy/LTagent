@@ -1,5 +1,6 @@
 package org.agent.MedAgent;
 
+import org.agent.MedAgent.config.StartBeforeCheck;
 import org.agent.MedAgent.store.MongoBlockingMessageHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class StartSpringBoot {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(StartSpringBoot.class, args);
+        StartBeforeCheck check = run.getBean(StartBeforeCheck.class);
+        check.CheckRedisKey();
         System.out.println("Springboot启动成功!!!");
         MongoBlockingMessageHandler handler = run.getBean(MongoBlockingMessageHandler.class);
         handler.StartHandlingMongoBlockingQueue();
