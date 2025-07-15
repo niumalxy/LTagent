@@ -15,6 +15,7 @@ public class StartSpringBoot {
         ConfigurableApplicationContext run = SpringApplication.run(StartSpringBoot.class, args);
         StartBeforeCheck check = run.getBean(StartBeforeCheck.class);
         check.CheckRedisKey();
+        check.CheckMongodb();
         System.out.println("Springboot启动成功!!!");
         MongoBlockingMessageHandler handler = run.getBean(MongoBlockingMessageHandler.class);
         handler.StartHandlingMongoBlockingQueue();

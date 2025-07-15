@@ -1,6 +1,7 @@
 package org.agent.MedAgent.Mapper;
 
 import org.agent.MedAgent.Object.Appointment;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -29,7 +30,7 @@ public class AppointmentMapper{
         mongoTemplate.save(appointment);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(ObjectId id) {
         Query query = new Query(Criteria.where("_id").is(id));
         mongoTemplate.remove(query, "Appointment");
     }

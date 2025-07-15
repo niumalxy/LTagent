@@ -29,14 +29,15 @@ public class ChatSessionServiceImpl implements ChatSessionService {
         //查redis
         List<ChatMessage> messages = redisChatMemoryStore.getMessages(memoryId);
         Query query = new Query(Criteria.where("memoryId").is(memoryId));
-        if(mongoTemplate.find(query, RedisChatHistory.class).isEmpty()){
-            RedisChatHistory redisChatHistory = new RedisChatHistory();
-            redisChatHistory.setMemoryId(memoryId);
-            redisChatHistory.setMessages(ChatMessageSerializer.messagesToJson(messages));
-            mongoTemplate.insert(redisChatHistory, "Chat");
-            return;
-        }
+//        if(mongoTemplate.find(query, RedisChatHistory.class).isEmpty()){
+//            RedisChatHistory redisChatHistory = new RedisChatHistory();
+//            redisChatHistory.setMemoryId(memoryId);
+//            redisChatHistory.setMessages(ChatMessageSerializer.messagesToJson(messages));
+//            mongoTemplate.insert(redisChatHistory, "Chat");
+//            return;
+//        }
         Update update = new Update().set("messages", ChatMessageSerializer.messagesToJson(messages));
-        mongoTemplate.updateFirst(query, update, "Chat");
+        //修改或新增
+        mongoTemplate.upsert(query, update, "Chat");
     }
 }

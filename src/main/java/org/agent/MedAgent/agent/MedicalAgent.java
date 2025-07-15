@@ -12,7 +12,8 @@ import org.agent.MedAgent.Prompt.MedicalPrompt;
 @AiService(wiringMode = AiServiceWiringMode.EXPLICIT,
         //streamingChatModel = "openAiChatModel",
         chatModel = "openAiChatModel",
-        chatMemoryProvider = "ChatManager"
+        chatMemoryProvider = "ChatManager",
+        tools = "appointmentTool"
 )
 public interface MedicalAgent {
     @SystemMessage(MedicalPrompt.start)

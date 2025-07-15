@@ -17,19 +17,21 @@ public class AppointmentTool {
     @Autowired
     private AppointmentMapper appointmentMapper;
 
-    @Tool(name="预约挂号", value = "在用户预约时调用。当用户提供完整信息后，根据用户所提供的信息，直接给用户回答是否可预约，并让用户确认所有预约信息，用户确认后再进行预约。" +
-                                "如果用户没有提供具体的医生姓名，请从向量存储中找到一位医生。")
+    @Tool(name="预约挂号", value = "根据参数，先执行工具方法queryDepartment查询是否可预约，并直接给用户回答是否可预约，并让用户确认所有预约信息，用户确认后再进行预约。")
     public String bookAppointment(Appointment appointment){
         //查找数据库中是否包含对应的预约记录
         List<Appointment> appointments = appointmentMapper.query(appointment);
         if(appointments.size()==3){
+            System.out.println("预约过多。");
             return "一人最多只能预约3次！";
         }
         for(Appointment data : appointments) {
             if(data.getDepartment().equals(appointment.getDepartment()) && data.getDate().equals(appointment.getDate())){
+                System.out.println("您在相同的科室和时间已有预约。");
                 return "您在相同的科室和时间已有预约";
             }
         }
+        appointment.setId(null);//防止大模型幻觉设置了id
         appointmentMapper.save(appointment);
         System.out.println("预约成功！信息："+appointment.toString());
         return  "预约成功，并返回预约详情";
@@ -55,7 +57,7 @@ public class AppointmentTool {
             @P(value = "时间，可选值：上午、下午") String time,
             @P(value = "医生名称", required = false) String doctorName
     ) {
-
+        System.out.println("查询号源。");
         //TODO 维护医生的排班信息：
         //如果没有指定医生名字，则根据其他条件查询是否有可以预约的医生（有返回true，否则返回false）；
 
