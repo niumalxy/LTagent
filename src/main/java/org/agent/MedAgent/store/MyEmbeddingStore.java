@@ -13,6 +13,8 @@ import java.util.*;
 
 @Component
 public class MyEmbeddingStore implements EmbeddingStore<TextSegment> {
+    //TODO
+    //后续可改成mongodb存储
     public Map<Embedding, TextSegment> docus;
     public MyEmbeddingStore(){
         this.docus = new HashMap<>();
