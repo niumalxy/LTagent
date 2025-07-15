@@ -6,12 +6,14 @@ import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
 import dev.langchain4j.store.embedding.EmbeddingSearchResult;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import org.agent.MedAgent.Object.RedisChatHistory;
+import org.agent.MedAgent.agent.LocalChatHistory;
 import org.agent.MedAgent.store.MyEmbeddingStore;
 import org.agent.MedAgent.utils.GlobalTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,12 @@ public class TestController {
     private MyEmbeddingStore embeddingStore;
     @Autowired
     private EmbeddingModel embeddingModel;
+
+    //测试本地变量存储的对话接口
+    @GetMapping("/chat_history/{memoryId}")
+    public void chat_init(@PathVariable Long memoryId) {
+        System.out.println(LocalChatHistory.getMessage(memoryId));
+    }
 
     @GetMapping("/mongo")
     public void testMongo(){

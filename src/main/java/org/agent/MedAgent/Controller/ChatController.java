@@ -34,9 +34,5 @@ public class ChatController {
         return medicalAgent.chat(GlobalTool.MemoryIdGenerater(chatItem.getMemoryId()), chatItem.getMessage(), currentDate);
     }
 
-    //测试本地变量存储的对话接口
-    @GetMapping("/chat_history/{memoryId}")
-    public void chat_init(@PathVariable Long memoryId) {
-        System.out.println(LocalChatHistory.getMessage(memoryId));
-    }
+
 }
