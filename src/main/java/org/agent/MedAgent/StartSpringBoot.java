@@ -17,6 +17,8 @@ public class StartSpringBoot {
         check.CheckRedisKey();
         check.CheckMongodb();
         System.out.println("Springboot启动成功!!!");
+        String currentAbsolutePath = System.getProperty("user.dir");
+        System.out.println("当前工作目录：" + currentAbsolutePath);
         MongoBlockingMessageHandler handler = run.getBean(MongoBlockingMessageHandler.class);
         handler.StartHandlingMongoBlockingQueue();
         System.out.println("Redis消息队列消费者线程启动成功！");

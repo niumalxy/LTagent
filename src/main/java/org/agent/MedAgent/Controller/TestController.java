@@ -1,6 +1,12 @@
 package org.agent.MedAgent.Controller;
 
+import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.embedding.EmbeddingModel;
+import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
+import dev.langchain4j.store.embedding.EmbeddingSearchResult;
+import dev.langchain4j.store.embedding.EmbeddingStore;
 import org.agent.MedAgent.Object.RedisChatHistory;
+import org.agent.MedAgent.store.MyEmbeddingStore;
 import org.agent.MedAgent.utils.GlobalTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,6 +22,10 @@ public class TestController {
     private StringRedisTemplate redisTemplate;
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private MyEmbeddingStore embeddingStore;
+    @Autowired
+    private EmbeddingModel embeddingModel;
 
     @GetMapping("/mongo")
     public void testMongo(){
@@ -26,5 +36,16 @@ public class TestController {
         redisChatHistory.setMemoryId(memoryId);
         redisChatHistory.setMessages(result);
         mongoTemplate.insert(redisChatHistory);
+    }
+
+    @GetMapping("/embeddingstore")
+    public void testembeddingstore(){
+        embeddingStore.add(embeddingModel.embed("你好").content(), TextSegment.from("你好"));
+        embeddingStore.add(embeddingModel.embed("再见").content(), TextSegment.from("再见"));
+        System.out.println("向量数据库中数据数量："+embeddingStore.getMapSize());
+        //检索
+        EmbeddingSearchResult<TextSegment> result = embeddingStore.search(new EmbeddingSearchRequest(embeddingModel.embed("您好").content(), 10, 0.8, null));
+        System.out.println(result.matches().toString());
+
     }
 }
