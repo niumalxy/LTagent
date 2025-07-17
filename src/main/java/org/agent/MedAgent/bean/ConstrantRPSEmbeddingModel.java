@@ -27,7 +27,7 @@ public class ConstrantRPSEmbeddingModel implements EmbeddingModel {
 
     @Value("${apikey}")
     private String apikey;
-    private final int wait_time = 2000;  //等待2s
+    private final int wait_time = 1000;  //等待2s
 
     //重写方法，防止瞬间RPS过多
     @Override
@@ -36,12 +36,14 @@ public class ConstrantRPSEmbeddingModel implements EmbeddingModel {
         String model = "text-embedding-v4";
         List<Embedding> result = new ArrayList<>();
         for(TextSegment text : texts) {
+            Gson t = new Gson();
+            String str = t.toJson(text.text());
             String json = String.format("{" +
                     "    \"model\": \"%s\"," +
-                    "    \"input\": \"%s\"," +
+                    "    \"input\": %s," +
                     "    \"dimension\": \"1024\"," +
                     "    \"encoding_format\": \"float\"" +
-                    "}", model, text.text());
+                    "}", model, str);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(base_url))
                     .header("Authorization", "Bearer " + apikey)
@@ -50,7 +52,6 @@ public class ConstrantRPSEmbeddingModel implements EmbeddingModel {
                     .build();
             HttpClient client = HttpClient.newHttpClient();
             try {
-                System.out.println(text.text());
                 HttpResponse<String> res = client.send(request, HttpResponse.BodyHandlers.ofString());
                 //HttpResponse<String> res = response.get();
                 Gson gson = new Gson();
@@ -60,7 +61,7 @@ public class ConstrantRPSEmbeddingModel implements EmbeddingModel {
                     System.out.println("文本检索结果：" + data.embedding);
                 }
                 Thread.sleep(wait_time);
-            } catch (IOException | InterruptedException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }

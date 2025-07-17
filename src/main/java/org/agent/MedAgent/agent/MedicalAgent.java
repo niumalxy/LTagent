@@ -13,8 +13,8 @@ import org.agent.MedAgent.Prompt.MedicalPrompt;
         //streamingChatModel = "openAiChatModel",
         chatModel = "openAiChatModel",
         chatMemoryProvider = "ChatManager",
-        tools = "appointmentTool"
-        //contentRetriever = "contentRetriever" //配置向量存储
+        tools = "appointmentTool",
+        contentRetriever = "contentRetriever" //配置向量存储
 )
 public interface MedicalAgent {
     @SystemMessage(MedicalPrompt.start)
