@@ -4,6 +4,7 @@ import org.agent.MedAgent.constant.RedisKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Scope("prototype") //原型bean，用一次就不用
 public class StartBeforeCheck {
     @Autowired
     private StringRedisTemplate redisTemplate;
