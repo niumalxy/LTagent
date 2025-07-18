@@ -3,3 +3,4 @@ flask
 pymongo
 mem0ai
 requests
+openai
