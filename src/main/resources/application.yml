@@ -1,0 +1,47 @@
+server:
+  port: 8080
+apikey: sk-ce56438938124685bbea4c710d45062a
+langchain4j:
+#  open-ai:
+#    chat-model:
+#      base-url: https://spark-api-open.xf-yun.com/v2/
+#      api-key: tmaKcsSEmsWCVgTIpPBn:zPnURCCKtGdFAWSceMmb
+#      model-name: x1
+#      log-requests: true
+#      log-responses: true
+#      headers:
+#        content-type: application/json
+#        Authorization: tmaKcsSEmsWCVgTIpPBn:zPnURCCKtGdFAWSceMmb
+  open-ai:
+    chat-model:
+      api-key: ${apikey}
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      model-name: qwen-max
+      log-requests: true
+      log-responses: true
+    embedding-model:
+      api-key: ${apikey}
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      model-name: text-embedding-v3
+      dimensions: 1024
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+  datasource:
+    mongodb:
+      host: localhost
+      port: 27017
+#      user: lxydev
+#      password: 123456
+      database: admin
+
+  #redis-server /Users/lxy/Downloads/homebrew/etc/redis.conf
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    name: defaultDataSource
+#    url: jdbc:mysql://localhost:3306/guiguxiaozhi?useUnicode=true&allowMultiQueries=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root
