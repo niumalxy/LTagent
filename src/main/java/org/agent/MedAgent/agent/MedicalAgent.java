@@ -18,7 +18,7 @@ import org.agent.MedAgent.Prompt.MedicalPrompt;
 )
 public interface MedicalAgent {
     @SystemMessage(MedicalPrompt.start)
-    String chat(@MemoryId Long memoryId, @UserMessage String userMessage, @V("current_date") String current_date);
+    String chat(@MemoryId Long memoryId, @UserMessage String userMessage, @V("current_date") String current_date, @V("history")String history);
 //    @SystemMessage(MedicalPrompt.start)
 //    Flux<String> stream_chat(@UserMessage String userMessage, @V("current_date") String current_date);
 }

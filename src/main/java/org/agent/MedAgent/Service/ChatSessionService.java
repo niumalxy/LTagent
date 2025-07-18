@@ -8,4 +8,5 @@ package org.agent.MedAgent.Service;
 public interface ChatSessionService {
     //将对话存入MongoDB
     void Dump2Mongo(Long memoryId);
+    String getHistory(Long idcard);
 }

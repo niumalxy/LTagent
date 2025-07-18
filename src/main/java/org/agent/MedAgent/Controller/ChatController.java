@@ -4,6 +4,7 @@ import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import org.agent.MedAgent.Object.ChatItem;
 import org.agent.MedAgent.Object.Response;
 import org.agent.MedAgent.Object.Result;
+import org.agent.MedAgent.Service.ChatSessionService;
 import org.agent.MedAgent.agent.LocalChatHistory;
 import org.agent.MedAgent.agent.MedicalAgent;
 import org.agent.MedAgent.utils.GlobalTool;
@@ -20,6 +21,8 @@ public class ChatController {
     private MedicalAgent medicalAgent;
     @Autowired
     private ChatMemoryProvider chatMemoryProvider;
+    @Autowired
+    private ChatSessionService chatSessionService;
 
     @GetMapping("/check")
     public Result<Void> check(){
@@ -31,7 +34,8 @@ public class ChatController {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String currentDate = now.format(formatter);
-        return medicalAgent.chat(GlobalTool.MemoryIdGenerater(chatItem.getMemoryId()), chatItem.getMessage(), currentDate);
+        String history = chatSessionService.getHistory(chatItem.getIdcard());
+        return medicalAgent.chat(GlobalTool.MemoryIdGenerater(chatItem.getMemoryId()), chatItem.getMessage(), currentDate, history);
     }
 
 

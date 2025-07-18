@@ -9,4 +9,5 @@ public class ChatItem {
     @Id
     private Long memoryId;
     private String message;
+    private Long idcard = -1L;
 }

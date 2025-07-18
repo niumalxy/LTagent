@@ -2,6 +2,7 @@ package org.agent.MedAgent.Service.Impl;
 
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.ChatMessageSerializer;
+import org.agent.MedAgent.Object.Archive;
 import org.agent.MedAgent.Object.ChatItem;
 import org.agent.MedAgent.Object.RedisChatHistory;
 import org.agent.MedAgent.Service.ChatSessionService;
@@ -39,5 +40,19 @@ public class ChatSessionServiceImpl implements ChatSessionService {
         Update update = new Update().set("messages", ChatMessageSerializer.messagesToJson(messages));
         //修改或新增
         mongoTemplate.upsert(query, update, "Chat");
+    }
+
+    public String getHistory(Long idcard){
+        Query query = new Query(Criteria.where("idcard").is(String.valueOf(idcard)));
+        if(idcard==-1){
+            query = new Query(Criteria.where("idcard").is("未知"));
+        }
+        List<Archive> results = mongoTemplate.find(query, Archive.class);
+        StringBuilder archive = new StringBuilder();
+        for(Archive data : results){
+            String prompt = "患病: %s \n挂号科室: %s\n就诊时间: %s\n\n";
+            archive.append(prompt.formatted(data.getDisease(), data.getDepartment(), data.getTime()));
+        }
+        return archive.toString();
     }
 }
