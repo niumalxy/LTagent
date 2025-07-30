@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF - 8">
+    <meta name="viewport" content="width=device-width, initial - scale = 1.0">
+    <title>Chat Interface</title>
+    <style>
+        #chat-box {
+            height: 300px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+        }
+
+        input[type="text"] {
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+<div id="info">
+    <div class="divide">
+        <a id="note">当前MemoryId:</a>
+        <a id="userid"></a>
+    </div>
+    <div class="divide">
+        <label for="idcard">身份证号：</label>
+        <input type="text" id="idcard">
+    </div>
+</div>
+<div id="chat-box"></div>
+<input type="text" id="message-input" placeholder="输入你的消息">
+<button id="send-button">发送</button>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    const memoryId = Math.floor(Math.random() * 10000000000);
+    document.getElementById('userid').textContent = memoryId;
+    document.addEventListener('DOMContentLoaded', function () {
+        const sendButton = document.getElementById('send-button');
+        const messageInput = document.getElementById('message-input');
+        const chatBox = document.getElementById('chat-box');
+
+        sendButton.addEventListener('click', function () {
+            const message = messageInput.value;
+            if (message.trim() === '') {
+                return;
+            }
+
+            const data = {
+                memoryId: memoryId,
+                message: message,
+                idcard: document.getElementById("idcard").value
+            };
+            console.log(data);
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+              .then(function (response) {
+                    const newMessage = document.createElement('p');
+                    newMessage.textContent = `你: ${message}`;
+                    chatBox.appendChild(newMessage);
+                    const replyMessage = document.createElement('p');
+                    //response为文本
+                    replyMessage.textContent = `机器人: ${response}`;
+                    chatBox.appendChild(replyMessage);
+
+                    messageInput.value = '';
+                })
+              .catch(function (error) {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+</body>
+
+</html>
