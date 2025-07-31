@@ -43,5 +43,14 @@ def chat():
     print(response.text)
     return response.text
 
+@app.route('/get_archive/<idcard>', methods=['GET'])
+def get_archive(idcard):
+    print("get_archive:", idcard)
+    url = f'http://localhost:8080/chat/archive/{idcard}'
+    response = requests.get(url)
+    print(response.json())
+    return response.json()
+
+    
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=9999, debug=True)

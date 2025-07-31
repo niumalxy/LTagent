@@ -27,6 +27,7 @@
     <div class="divide">
         <label for="idcard">身份证号：</label>
         <input type="text" id="idcard">
+        <button id="get-archive">获取档案</button>
     </div>
 </div>
 <div id="chat-box"></div>
@@ -41,7 +42,22 @@
         const sendButton = document.getElementById('send-button');
         const messageInput = document.getElementById('message-input');
         const chatBox = document.getElementById('chat-box');
-
+        const getArchiveButton = document.getElementById('get-archive');
+        getArchiveButton.addEventListener('click', function () {
+            const idcard = document.getElementById('idcard').value;
+            fetch(`/get_archive/${idcard}`)
+            .then(response => response.json())
+            .then(data => {
+                //弹出小窗口，显示档案
+                const archiveWindow = window.open('', '_blank', 'width=400,height=300');
+                for (const item of data) {
+                    const archive = document.createElement('p');
+                    archive.innerHTML = "姓名：" + item.name+ "\n" + "患病：" + item.disease + "\n" + "部门：" + item.department + "\n" + "时间：" + item.time+"\n";
+                    archiveWindow.document.body.appendChild(archive);
+                    archiveWindow.document.body.appendChild(document.createElement('br'));
+                }
+            });
+        });
         sendButton.addEventListener('click', function () {
             const message = messageInput.value;
             if (message.trim() === '') {
